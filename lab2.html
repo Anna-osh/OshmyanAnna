@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table</title>
+  <style>
+        table{
+            border-collapse: collapse;
+            width: 400px;
+        }
+        th{
+            Border : solid 1px #000;
+            background-color: #39faa1;
+        }
+        td{
+            Border : solid 1px #000;
+        }
+        h3{
+          margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <script type="text/javascript">
+      let body = document.querySelector('body');
+
+let module = (function() {
+
+let arrayTrain = [
+    {
+      number: 123,
+      tripTo: "Minsk",
+      tripFrom: "Brest",
+      price: 44
+    },
+    {
+      number: 423,
+      tripTo: "Moskow",
+      tripFrom: "Brest",
+      price: 487
+    },
+    {
+      number: 453,
+      tripTo: "Pinsk",
+      tripFrom: "Brest",
+      price: 46
+    },
+    {
+      number: 743,
+      tripTo: "Minsk",
+      tripFrom: "Baranovichi",
+      price: 4564
+    },
+    {
+      number: 567,
+      tripTo: "Grodno",
+      tripFrom: "Minsk",
+      price: 456
+    }
+    ];
+  
+function getData(elem1, elem2){
+ return Object.values(arrayTrain[elem1])[elem2];
+}
+let getHeader = Object.keys(arrayTrain[0]);
+
+return{
+    printTable : function(){
+
+        let table = body.appendChild(document.createElement('table'));
+        let tr = document.createElement('tr');
+        table.appendChild(tr);
+
+        for(let i = -1; i < arrayTrain.length; i++){
+          let tr = document.createElement('tr');
+          table.appendChild(tr);
+          if (i == -1){
+            for (let j = 0; j < getHeader.length; j++) {
+              let th = document.createElement('th');
+              tr.appendChild(th);
+              th.innerText = getHeader[j];
+            }
+          }
+          else{
+            for (let j = 0; j < getHeader.length; j++) {
+              let td = document.createElement('td');
+              tr.appendChild(td);
+              if (getHeader[j] == 'price') {
+                  td.className = 'price';
+            }
+            td.innerText = getData(i, j);
+            }
+          }
+        }
+    },
+    averagePrice : function() {
+      let sum = 0;
+      let priceArray = document.querySelectorAll('.price');
+      
+      for (let i = 0; i < priceArray.length; i++) {
+          let price = +priceArray[i].innerText;
+          sum = sum + price;
+      }
+      return (sum / arrayTrain.length).toFixed();
+    }
+  }
+}())
+let tableName=document.createElement('h1');
+let name=body.appendChild(tableName);
+name.innerText="Trains";
+
+module.printTable();
+
+let h = document.createElement('h3');
+let h3 = body.appendChild(h);
+h3.innerText = "\nAverage price equals " + module.averagePrice()+".";
+    </script>
+    
+</body>
+</html>
