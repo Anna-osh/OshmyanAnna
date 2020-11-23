@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table</title>
+  <style>
+        table{
+            border-collapse: collapse;
+            width: 400px;
+        }
+        th{
+            Border : solid 1px #000;
+            background-color: #39faa1;
+        }
+        td{
+            Border : solid 1px #000;
+        }
+        h3{
+          margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+  <p>Number: <input type="number" min="0" id="number"></p>
+  <p>To: <input type="text" id="tripTo"></p>
+  <p>From: <input type="text" id="tripFrom"></p>
+  <p>Price: <input type="number" id="price"></p>
+  <button onclick="moduleT.createArray()">Add</button>
+
+  <script type="text/javascript">
+    let body = document.querySelector('body');
+
+     let moduleT = (function() {
+      let array=[];
+      let getHeader;
+
+      function getData(elem1, elem2){
+        return Object.values(array[elem1])[elem2];
+      }
+
+      return{
+        deleteTr: function(obj){
+          let elemDel=parseInt(obj.name);
+          let newArray=[];
+          for (let i = 0; i < array.length; i++){
+            if (i == elemDel) continue;
+            newArray.push(array[i]);
+          }
+          array = newArray;
+          moduleT.printTable();
+        }, 
+        createArray: function(){
+          let train = {
+            "number": document.querySelector('#number').value,
+            "tripTo": document.querySelector('#tripTo').value,
+            "tripFrom": document.querySelector('#tripFrom').value,
+            "price": document.querySelector('#price').value
+          };
+          array.push(train);
+          getHeader = Object.keys(train);
+          moduleT.printTable();
+         },
+         averagePrice: function() {
+            let sum = 0;
+            let priceArray = document.querySelectorAll('.price');
+            
+            for (let i = 0; i < priceArray.length; i++) {
+                let price = +priceArray[i].innerText;
+                sum = sum + price;
+            }
+            return (sum / array.length).toFixed();
+          },
+          printTable: function(){
+            if(document.getElementsByTagName("table")[0]){
+              document.getElementsByTagName( "table" )[0].remove();
+            }
+
+            let table = body.appendChild(document.createElement('table'));
+            let tr = document.createElement('tr');
+            table.appendChild(tr);
+
+            for(let i=-1; i<array.length; i++){
+              let tr = document.createElement('tr');
+            
+              if(i==-1){
+                for(let j=0; j<=getHeader.length; j++){
+                  let th=document.createElement('th');
+                  tr.appendChild(th);
+                  
+                  if(j==getHeader.length) th.innerText="button";
+                  else th.innerText=getHeader[j];
+                }
+              }
+              else{
+                for(let j=0; j<getHeader.length; j++){
+                  let td=document.createElement('td');
+                  tr.appendChild(td);
+                  if (getHeader[j] == 'price') {
+                    td.className = 'price';
+                  }
+                  td.innerText=getData(i, j);
+                }
+                  let button=document.createElement('button');
+                  button.appendChild(document.createTextNode('Delete'));
+                  button.setAttribute("name", i);
+                  button.setAttribute("onclick", "moduleT.deleteTr(this)");
+                  tr.appendChild(button);
+                  
+              }
+              table.appendChild(tr);
+            }
+            table.setAttribute("border", "2");
+
+          if(document.getElementsByTagName("h3")[0]){
+            document.getElementsByTagName( "h3" )[0].remove();
+          }
+          let h = document.createElement('h3');
+          let h3 = body.appendChild(h);
+          h3.innerText = "\nAverage price equals " + moduleT.averagePrice()+".";
+          }
+      }
+     }())
+     let tableName=document.createElement('h1');
+     let name=body.appendChild(tableName);
+     name.innerText="Trains";
+  </script>
+</body>
+</html>
+
