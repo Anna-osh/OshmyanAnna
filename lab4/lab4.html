@@ -1,0 +1,44 @@
+<!--ВСЕ ГРУППЫ:
+Новое задание:
+За основу берется предыдущее задание. Вместо задания массива объектов явно получить его с помощью XMLHttpRequest (т.е. сделать AJAX-запрос).
+Вариант проще: это может быть просто json файл где-то на диске; вариант посложнее: поднять сервер на nodejs, php и т.п. и вернуть ответ клиенту.
+Часть про генерацию таблицы остается прежней.
+Сначала надо на нативном javascript делать.
+ДАЛЕЕ:
+Берем предыдущее задание (таблица+форма для добавления/редактирования+удаление+ajax) и переписываем всё на jQuery.
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Table (lab4)</title>
+	<meta charset='utf-8'>	 
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'> 
+	 <style>
+        table{
+            border-collapse: collapse;
+            width: 400px;
+        }
+        th{
+            Border : solid 1px #000;
+            background-color: #39faa1;
+        }
+        td{
+            Border : solid 1px #000;
+        }
+        h3{
+          margin-top: 0px;
+        }
+    </style>
+	<!--
+    <script src="jquery.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="lab4.js"></script>	
+</head>
+<body>
+</body>
+</html>
+
+   
+    
+
